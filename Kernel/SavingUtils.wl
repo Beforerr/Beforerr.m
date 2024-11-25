@@ -7,13 +7,14 @@ saveP[name_, p_, fmts_ : {".svg"}, dir_:"figures/"] :=
 
 Options[safeSave] = {fmts -> {".svg"}, dir -> "figures/"};
 
-safeSave[path_?StringQ] :=
+safeSaveP[path_?StringQ, expr_] :=
     If[!FileExistsQ[path],
-        Export[path]
+        Export[path, expr],
+        Print["Saved to: ", path]
     ];
 
 safeSave[name_, p_, OptionsPattern[]] :=
-    safeSave[OptionValue[dir] <> name <> #, p]& /@ OptionValue[fmts];
+    safeSaveP[OptionValue[dir] <> name <> #, p]& /@ OptionValue[fmts];
 
 saveName[c_] :=
     StringReplace[StringRiffle[ToString /@ c, "_"], " -> " -> "="]
