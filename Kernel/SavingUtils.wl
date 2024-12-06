@@ -19,4 +19,8 @@ safeSave[name_, p_, OptionsPattern[]] :=
 saveName[c_] :=
     StringReplace[StringRiffle[ToString /@ c, "_"], " -> " -> "="]
 
+posterShow[graphics_] := Show[graphics, LabelStyle -> {Larger}]
+
+posterSave[name_, graphics_] := safeSave[name <> "_poster", posterShow[graphics]]
+
 EndPackage[];
